@@ -1,0 +1,23 @@
+<Application x:Class="BlRecover.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:app="clr-namespace:BlRecover.App">
+    <!-- No StartupUri: App.OnStartup creates the window itself, so the demo and smoke-test
+         modes do not end up with a second, un-populated window alongside them. -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MaterialDesignThemes 5.x: BaseTheme is an enum of Inherit | Light | Dark.
+                     The old "MaterialDesignLight" string is no longer valid. -->
+                <materialDesign:BundledTheme BaseTheme="Light" />
+                <ResourceDictionary Source="Themes/Palette.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <app:BoolToVisibilityConverter x:Key="BoolToVis" />
+            <app:InverseBoolToVisibilityConverter x:Key="InverseBoolToVis" />
+            <app:LogLevelToBrushConverter x:Key="LogLevelToBrush" />
+            <app:ResourceKeyToBrushConverter x:Key="ResourceKeyToBrush" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

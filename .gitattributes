@@ -1,0 +1,18 @@
+# Normalise line endings on checkin, check out with native endings.
+* text=auto
+
+*.cs        text diff=csharp
+*.xaml     text diff=xml
+*.csproj   text
+*.sln      text
+*.md       text
+*.ps1      text eol=crlf
+*.cmd      text eol=crlf
+*.bat      text eol=crlf
+
+*.png      binary
+*.ico      binary
+*.jpg      binary
+*.exe      binary
+*.dll      binary
+*.pdb      binary

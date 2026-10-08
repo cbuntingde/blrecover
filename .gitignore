@@ -1,0 +1,57 @@
+# ---- build output -------------------------------------------------------
+# build.ps1 redirects BaseOutputPath into build\bin, so everything lands here.
+build/
+dist/
+bin/
+obj/
+
+# .NET / MSBuild
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.vscode/
+.idea/
+*.csproj.user
+*.dbmdl
+*.jfm
+
+# Test / coverage output
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+
+# ---- tool output --------------------------------------------------------
+# Safety backups written by `blrecover backup` and by every write command.
+# These contain real partition-table bytes from a real disk - never commit them.
+blrecover-backups/
+*-backups/
+*.bin
+
+# Practice images created by `blrecover mkimage`. Sparse, but still large
+# and never worth committing.
+*.img
+*.vhd
+*.vhdx
+
+# Logs
+*.log
+logs/
+
+# ---- local agent / editor scratch ---------------------------------------
+# Local OpenCode session memory and state - machine-specific, not project source.
+.opencode/
+
+# ---- OS / editor --------------------------------------------------------
+Thumbs.db
+Desktop.ini
+.DS_Store
+.idea/
+*.swp
+*.swo
+*~

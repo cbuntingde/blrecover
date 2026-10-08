@@ -311,8 +311,12 @@ src/
 Each project owns the sources it compiles: there is no shared-source glob, so a new `.cs` file
 lands in the project that should contain it and nothing else picks it up by accident.
 
-`--ui-smoke-test` loads the real window and walks the visual tree; `--ui-demo` fills the GUI
-from a synthetic image. Both are safe — no real disk is touched.
+`--ui-demo` fills the GUI from a synthetic image in `%TEMP%` and touches no real disk at all.
+
+`--ui-smoke-test` loads the real window and walks the visual tree. It never writes, but it does
+**enumerate and read the physical disks on the machine you run it on**, so its output will list
+whatever disks that machine happens to have. Run it on a machine whose disks you do not mind
+having read.
 
 ## Requirements
 

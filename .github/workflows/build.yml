@@ -15,9 +15,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
 
@@ -35,22 +35,27 @@ jobs:
 
       - name: UI smoke test
         shell: pwsh
+        # Writes nothing, but it does read the runner's physical disks, so its disk
+        # list in the log is the runner's, not a fixture. Start-Process -Wait is
+        # required: the GUI is a WinExe, so `&` would return before it finished.
         run: |
           $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
           $env:DOTNET_NOLOGO = '1'
           $app = Resolve-Path 'src/BlRecover.App/bin/Release/net10.0-windows/BlRecover.App.exe'
-          & $app --ui-smoke-test
-          Get-Content "$env:TEMP/blrecover-ui-smoke.log"
+          $log = Join-Path $env:TEMP 'blrecover-ui-smoke.log'
+          $p = Start-Process -FilePath $app -ArgumentList '--ui-smoke-test' -PassThru -Wait
+          if (Test-Path $log) { Get-Content $log }
+          if ($p.ExitCode -ne 0) { throw "UI smoke test failed with exit code $($p.ExitCode)" }
 
       - name: Upload CLI
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: blrecover-cli
           path: src/BlRecover.Cli/bin/Release/net10.0-windows/blrecover.exe
           if-no-files-found: error
 
       - name: Upload GUI
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: blrecover-gui
           path: |

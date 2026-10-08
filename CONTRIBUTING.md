@@ -39,8 +39,12 @@ Thanks for looking at this. A few things first.
 .\build.ps1 -SelfContained      # single standalone GUI exe into dist\
 ```
 
-`--ui-smoke-test` and `--ui-demo` are safe — they run against synthetic images
-and never open a physical disk.
+`--ui-demo` is safe — it runs entirely against a synthetic image in `%TEMP%` and never opens a
+physical disk.
+
+`--ui-smoke-test` loads the real window, so it **enumerates and reads the physical disks of the
+machine it runs on**. It never writes, but it is not hermetic. Don't run it somewhere the disk
+list is sensitive.
 
 ## Commit messages
 
